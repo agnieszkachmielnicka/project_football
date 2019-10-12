@@ -29,11 +29,3 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
-
-
-class Match(models.Model):
-    name = models.CharField(max_length=255)
-    creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    date_and_time = models.DateTimeField()
-    quantity_of_players = models.IntegerField()
-    location = models.CharField(max_length=500)

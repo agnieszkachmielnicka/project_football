@@ -11,6 +11,8 @@ const Navbar = (props) => {
                         props.isAuthenticated ?
 
                             <ul className="right">
+                                <li><NavLink to='/user_matches/'>Your Matches</NavLink></li>
+                                <li><NavLink to='/create_match/'>Create Match</NavLink></li>
                                 <li><Link to='/userdetail/'>{props.username}</Link></li>
                                 <li onClick={props.logout}><Link to="/">Logout</Link></li>
                             </ul>

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'accounts',
+    'matches',
     'corsheaders',
     'allauth',
     'allauth.account',
@@ -49,7 +50,6 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_auth',
     'webpack_loader',
-    'multiselectfield',
 ]
 
 ACCOUNT_ADAPTER = 'project_football.adapters.CustomUserAccountAdapter'

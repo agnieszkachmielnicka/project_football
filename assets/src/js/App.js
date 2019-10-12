@@ -2,11 +2,7 @@ import React from 'react';
 import {connect, compose} from 'react-redux';
 import * as actions from '../store/actions/auth';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { withRouter} from 'react-router-dom';
 import BaseRouter from './routers';
-import NormalLoginForm from './Login';
-import RegistrationForm from './Signup';
-import Signup from './Signup';
 import Navbar from './components/Navbar'
 
 

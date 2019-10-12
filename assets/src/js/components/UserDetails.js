@@ -31,8 +31,6 @@ class UserDetails extends React.Component {
     }
 
     updateUserDetails = (username) => {
-        console.log("UPDATE")
-        console.log(this.state.user)
         axios.put('http://localhost:8000/accounts/api/users/' + username + '/', this.state.user)
         .then(res => {
             console.log(res)         
