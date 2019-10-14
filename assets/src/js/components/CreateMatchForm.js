@@ -74,7 +74,7 @@ class CreateMatchForm extends Component {
                             <DatePickerInput id="match_date" name="match_date" displayFormat="YYYY-MM-DD" returnFormat="YYYY-MM-DD" value={this.state.match_date} className='my-custom-datepicker-component' onChange={(jsDate, dateString) => this.setState({ match_date: dateString })}/>
                         </div>
                         <div class="input-field col s6">
-                            <TimePicker showSecond={false} returnFormat="hh:mm" name="match_time" defaultValue={this.state.match_time} onChange={this.handleTime}/>
+                            <TimePicker showSecond={false} name="match_time" defaultValue={this.state.match_time} onChange={this.handleTime}/>
                             <label className="active" for="match_time">Time</label>
                         </div> 
                     </div>

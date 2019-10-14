@@ -6,6 +6,7 @@ import UserDetails from "./components/UserDetails"
 import CreateMachForm from "./components/CreateMatchForm"
 import UserMatches from "./components/UserMatches"
 import Match from "./components/Match"
+import EditMatchForm from "./components/EditMatchForm";
 
 
 const BaseRouter = () => (
@@ -16,6 +17,7 @@ const BaseRouter = () => (
     <Route exact path="/create_match/" component={CreateMachForm}/>{" "}
     <Route exact path="/user_matches/" component={UserMatches}/>{" "}
     <Route exact path="/matches/:match_id/" component={Match}/>{" "}
+    <Route exact path="/matches/edit/:match_id/" component={EditMatchForm}/>{" "}
   </div>
 );
 

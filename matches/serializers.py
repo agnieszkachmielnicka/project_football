@@ -5,6 +5,7 @@ from accounts.models import CustomUser
 class MatchSerializer(serializers.ModelSerializer):
 
     creator = serializers.SlugRelatedField(slug_field="username", queryset=CustomUser.objects.all())
+    match_time = serializers.TimeField(format='%H:%m')
 
     class Meta:
         model = Match
