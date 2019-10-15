@@ -14,7 +14,8 @@ class CreateMatchForm extends Component {
         match_date: null,
         match_time: null,
         quantity_of_players: "",
-        location: ""
+        location: "",
+        if_private: false,
     }
 
 
@@ -26,7 +27,8 @@ class CreateMatchForm extends Component {
             match_time: data.match_time,
             creator: localStorage.getItem('user'),
             quantity_of_players: data.quantity_of_players,
-            location: data.location
+            location: data.location,
+            if_private: data.if_private
         })
         .then(res => {
             console.log(res)         
@@ -38,8 +40,9 @@ class CreateMatchForm extends Component {
 
     handleChange = (e) => {
         const name = e.target.name
+        const value = e.target.value;
         this.setState({
-            [name] : e.target.value
+            [name] : value
         })
     }
 
@@ -89,6 +92,20 @@ class CreateMatchForm extends Component {
                             <input id="location" name="location" type="text" class="validate" defaultValue={this.state.location} onChange={this.handleChange}/>
                             <label for="location">Location</label>
                         </div> 
+                    </div>
+                    <div className="row" id="if-private">              
+                        <div class="col s6">
+                            <label>
+                                <input type="radio" class="filled-in" name="if_private" value="true" defaultChecked={this.state.if_private} onChange={this.handleChange}/>
+                                <span>Private</span>
+                            </label>
+                        </div>
+                        <div class="col s6">
+                            <label>
+                                <input type="radio" class="filled-in" name="if_private" value="false" defaultChecked={this.state.if_private === false} onChange={this.handleChange}/>
+                                <span>Public</span>
+                            </label>
+                        </div>
                     </div>
                     <div className="row">
                         <button class="btn waves-effect waves-light" type="submit">Create

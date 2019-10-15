@@ -8,6 +8,7 @@ class Match(models.Model):
     match_time = models.TimeField()
     quantity_of_players = models.IntegerField()
     location = models.CharField(max_length=500)
+    if_private = models.BooleanField()
 
     def __str__(self):
         return self.name

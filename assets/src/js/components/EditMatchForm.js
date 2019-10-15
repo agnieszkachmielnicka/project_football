@@ -4,6 +4,7 @@ import { DatePickerInput } from 'rc-datepicker';
 import TimePicker from 'rc-time-picker';
 import 'rc-datepicker/lib/style.css';
 import 'rc-time-picker/assets/index.css';
+import { NavLink } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios';
 
@@ -44,11 +45,13 @@ class EditMatchForm extends Component {
 
     handleChange = (e) => {
         const name = e.target.name
+        const value = e.target.value;
+        console.log(value)
         this.setState({
             ...this.state,
             match: {
                 ...this.state.match,
-                [name]: e.target.value
+                [name]: value
             }
         })
     }
@@ -81,6 +84,8 @@ class EditMatchForm extends Component {
     }
 
     render() {
+
+        const match_url = "/matches/" + this.state.match_id + "/"
         
         const match = this.state.match ? (
             <form className="col s12" onSubmit={this.handleSubmit}>
@@ -113,10 +118,33 @@ class EditMatchForm extends Component {
                         <label className="active" for="location">Location</label>
                     </div> 
                 </div>
+                <div className="row" id="if-private">              
+                    <div class="col s6">
+                        <label>
+                            <input type="radio" class="filled-in" name="if_private" value="true" defaultChecked={this.state.match.if_private} onChange={this.handleChange}/>
+                            <span>Private</span>
+                        </label>
+                    </div>
+                    <div class="col s6">
+                        <label>
+                            <input type="radio" class="filled-in" name="if_private" value="false" defaultChecked={!this.state.match.if_private} onChange={this.handleChange}/>
+                            <span>Public</span>
+                        </label>
+                    </div>
+                </div>
                 <div className="row">
-                    <button class="btn waves-effect waves-light" type="submit">Edit
-                        <i class="material-icons right">send</i>
-                    </button> 
+                    <div className="col">
+                        <button class="btn waves-effect waves-light" type="submit">Edit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                    <div className="col">
+                        <NavLink to={match_url}>
+                            <button class="btn waves-effect waves-light red">Cancel
+                                <i class="material-icons right">cancel</i>
+                            </button>
+                        </NavLink>
+                    </div>
                 </div>
             </form>
         )
