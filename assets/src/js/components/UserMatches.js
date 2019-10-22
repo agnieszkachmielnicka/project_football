@@ -14,7 +14,12 @@ class UserMatches extends Component {
     }
 
     getUserMatches = () => {
-        axios.get('http://localhost:8000/matches/api/matches/')
+        const token = `Token ` + localStorage.getItem('token')
+        console.log(token)
+        const headers = {
+            'Authorization': token
+        }
+        axios.get('http://localhost:8000/matches/api/matches/', {"headers": headers})
         .then(res => {
             console.log(res.data)
             this.setState({
@@ -40,13 +45,30 @@ class UserMatches extends Component {
                                             <p>Time: {match.match_time}</p>
                                             <p>Location: {match.location}</p>
                                             <p>Quantity of players: {match.quantity_of_players}</p>
+                                            <p>Created by: {match.creator}</p>
                                         </div>
                                     </div>
                                 )
                             })
                         )
                         :
-                        <div>Loading</div>
+                        (
+                            <div className="container center">
+                                <div class="preloader-wrapper small active">
+                                    <div class="spinner-layer spinner-green-only">
+                                        <div class="circle-clipper left">
+                                            <div class="circle"></div>
+                                        </div>
+                                        <div class="gap-patch">
+                                            <div class="circle"></div>
+                                        </div>
+                                        <div class="circle-clipper right">
+                                            <div class="circle"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
                             
                         
         return (

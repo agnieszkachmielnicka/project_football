@@ -41,12 +41,11 @@ export const checkAuthTimeout = expirationTime => {
 export const authLogin = (username, password) => {
     return dispatch => {
         dispatch(authStart());
-        axios.post('http://127.0.0.1:8000/rest-auth/login/', {
+        axios.post('http://localhost:8000/rest-auth/login/', {
             username: username,
             password: password
-        })
+        },)
         .then(res => {
-            console.log(res)
             const token = res.data.key;
             const user = username;
             const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
@@ -65,7 +64,7 @@ export const authLogin = (username, password) => {
 export const authSignup = (username, first_name, second_name, email, age, password1, password2) => {
     return dispatch => {
         dispatch(authStart());
-        axios.post('http://127.0.0.1:8000/rest-auth/registration/', {
+        axios.post('http://localhost:8000/rest-auth/registration/', {
             username: username,
             firstName: first_name,
             secondName: second_name,
@@ -76,6 +75,9 @@ export const authSignup = (username, first_name, second_name, email, age, passwo
         })
         .then(res => {
             const token = res.data.key;
+            console.log("REGISTER")
+            console.log(res)
+            console.log(token)
             const user = username
             const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
             localStorage.setItem('token', token);
@@ -85,6 +87,7 @@ export const authSignup = (username, first_name, second_name, email, age, passwo
             dispatch(checkAuthTimeout(3600));
         })
         .catch(err => {
+            console.log("ERROR")
             dispatch(authFail(err))
         })
     }

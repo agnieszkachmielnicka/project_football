@@ -52,9 +52,6 @@ INSTALLED_APPS = [
     'webpack_loader',
 ]
 
-ACCOUNT_ADAPTER = 'project_football.adapters.CustomUserAccountAdapter'
-AUTH_USER_MODEL = 'accounts.CustomUser'
-
 SITE_ID = 1
 
 MIDDLEWARE = [
@@ -100,6 +97,7 @@ DATABASES = {
     }
 }
 
+# REST_USE_JWT = True
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -142,6 +140,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assets'),
 )
+
+ACCOUNT_ADAPTER = 'project_football.adapters.CustomUserAccountAdapter'
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 AUTHENTICATION_BACKENDS = (
    "django.contrib.auth.backends.ModelBackend",

@@ -49,6 +49,8 @@ class CreateMatchForm extends Component {
     handleTime = (time) => {
         let hours = time._d.getHours()
         let min = time._d.getMinutes()
+        console.log(hours + ':' + min)
+        
         this.setState({ 
             match_time: hours + ':' + min
         })
