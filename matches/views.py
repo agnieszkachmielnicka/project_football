@@ -1,3 +1,6 @@
+from rest_framework.generics import get_object_or_404
+from rest_framework.response import Response
+
 from matches.models import Match
 from matches.serializers import MatchSerializer
 from re import sub
@@ -26,9 +29,15 @@ class MatchViewset(viewsets.ViewSetMixin, generics.ListCreateAPIView):
         print(self.request.user)
         return Match.objects.filter(creator=self.request.user)
 
+    def get(self, request, pk):
+        matches = Match.objects.all()
+        serializer = MatchSerializer(matches, many=True)
+        return Response({"matches": serializer.data})
+
 
 class PublicMatchList(viewsets.ViewSetMixin, generics.ListCreateAPIView):
     serializer_class = MatchSerializer
 
     def get_queryset(self):
         return Match.objects.filter(if_private=False)
+

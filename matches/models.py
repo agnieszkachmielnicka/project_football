@@ -9,6 +9,7 @@ class Match(models.Model):
     quantity_of_players = models.IntegerField()
     location = models.CharField(max_length=500)
     if_private = models.BooleanField()
+    players = models.ManyToManyField(CustomUser, related_name="players")
 
     def __str__(self):
         return self.name
