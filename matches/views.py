@@ -8,11 +8,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework import viewsets
 from rest_framework import generics
 
-# class MatchViewset(viewsets.ModelViewSet):
-#     queryset = Match.objects.all()
-#     serializer_class = MatchSerializer
 
-class MatchViewset(viewsets.ViewSetMixin, generics.ListCreateAPIView):
+class MatchViewset(generics.ListCreateAPIView):
     serializer_class = MatchSerializer
 
     def get_queryset(self):
@@ -25,14 +22,12 @@ class MatchViewset(viewsets.ViewSetMixin, generics.ListCreateAPIView):
                 self.request.user = token_obj.user
             except Token.DoesNotExist:
                 pass
-        # This is now the correct user
-        print(self.request.user)
         return Match.objects.filter(creator=self.request.user)
 
-    def get(self, request, pk):
-        matches = Match.objects.all()
-        serializer = MatchSerializer(matches, many=True)
-        return Response({"matches": serializer.data})
+
+class MatchDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Match.objects.all()
+    serializer_class = MatchSerializer
 
 
 class PublicMatchList(viewsets.ViewSetMixin, generics.ListCreateAPIView):

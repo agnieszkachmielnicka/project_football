@@ -20,15 +20,18 @@ class CreateMatchForm extends Component {
 
 
     createMatch = (data) => {
+        const creator = localStorage.getItem('user')
+        const players = [creator]
         console.log(data)
         axios.post('http://localhost:8000/matches/api/matches/', {
             name: data.match_name,
             match_date: data.match_date,
             match_time: data.match_time,
-            creator: localStorage.getItem('user'),
+            creator: creator,
             quantity_of_players: data.quantity_of_players,
             location: data.location,
-            if_private: data.if_private
+            if_private: data.if_private,
+            players: players
         })
         .then(res => {
             console.log(res)         
