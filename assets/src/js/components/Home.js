@@ -8,7 +8,8 @@ import { NavLink } from 'react-router-dom';
 class Home extends Component {
 
     state = {
-        public_matches: null
+        public_matches: null,
+        match: null
     }
 
     componentDidMount() {
@@ -28,14 +29,29 @@ class Home extends Component {
         })
     }
 
-    joinMatch = (match_id, user) => {
-        this.state.public_matches.map(match => {
-            match.id === match_id && 
-            (!match.players.includes(user) && match.players.push(user))               
+    getMatch = (match_id) => {
+        const token = `Token ` + localStorage.getItem('token')
+        console.log(token)
+        const headers = {
+            'Authorization': token
+        }
+        axios.get('http://localhost:8000/matches/api/matches/' + match_id + '/', {"headers": headers})
+        .then(res => {
+            console.log(res.data)
+            this.setState({
+                matches: res.data
+            })      
         })
-        console.log(this.state.public_matches)
-        axios.put('http://localhost:8000/matches/api/matches/' + match_id + '/',
-        this.state.public_matches)
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
+    joinMatch = (match, user) => {
+        !match.players.includes(user) && match.players.push(user)           
+        const token = `Token ` + localStorage.getItem('token')
+        axios.patch('http://localhost:8000/matches/api/matches/' + match.id + '/',
+        {players: match.players})
         .then(res => {
             console.log(res)         
         })
@@ -63,7 +79,7 @@ class Home extends Component {
                                                     </div>
                                                     {(this.props.isAuthenticated && (this.props.username !== match.creator)) &&
                                                         <div className="section col">
-                                                            <a class="btn-floating btn-medium waves-effect waves-light red" onClick={() => this.joinMatch(match.id, this.props.username)}><i class="material-icons">add</i></a>
+                                                            <a class="btn-floating btn-medium waves-effect waves-light red" onClick={() => this.joinMatch(match, this.props.username)}><i class="material-icons">add</i></a>
                                                         </div>
                                                     }
                                                 </div> 
@@ -71,7 +87,7 @@ class Home extends Component {
                                         )
                                     })
                                 )
-                                :
+                                :   
                                 (
                                     <div className="container center">
                                     <div class="preloader-wrapper small active">

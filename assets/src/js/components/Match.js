@@ -15,7 +15,12 @@ class Match extends Component {
     }
 
     getMatch = (match_id) => {
-        axios.get('http://localhost:8000/matches/api/matches/' + match_id + '/')
+        const token = `Token ` + localStorage.getItem('token')
+        console.log(token)
+        const headers = {
+            'Authorization': token
+        }
+        axios.get('http://localhost:8000/matches/api/matches/' + match_id + '/', {"headers": headers})
         .then(res => {
             console.log(res.data)
             this.setState({
@@ -38,6 +43,10 @@ class Match extends Component {
                               <p>Time: {this.state.match.match_time}</p>
                               <p>Location: {this.state.match.location}</p>
                               <p>Quantity of players: {this.state.match.quantity_of_players}</p>
+                              <p>Players: </p>
+                              {this.state.match.players.map(player => {
+                                  return <p>{player}</p>
+                              })}
                           </div>
                       )
                       :
